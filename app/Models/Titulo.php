@@ -22,4 +22,18 @@ class Titulo extends Model
     {
         return $this->belongsToMany(Autor::class, 'autor_titulo');
     }
+
+    public function regalias()
+    {
+        return $this->hasMany(Regalia::class);
+    }
+
+    public function ventas()
+    {
+        return $this->belongsToMany(Venta::class, 'venta_titulo')
+                    ->withPivot('cantidad')
+                    ->withTimestamps();
+    }
+
+
 }

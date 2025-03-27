@@ -5,6 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\TituloController;
 use App\Http\Controllers\AutorController;
+use App\Http\Controllers\RegaliaController;
+use App\Http\Controllers\VentaController;
+use App\Http\Controllers\LibreriaController;
+use App\Http\Controllers\DescuentoController;
+use App\Http\Controllers\FotoController;
+use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\DashboardController;
 
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -26,6 +33,26 @@ Route::get('/', function () {
 Route::resource('editoriales', EditorialController::class);
 Route::resource('titulos', TituloController::class);
 Route::resource('autores', AutorController::class);
+Route::resource('regalias', RegaliaController::class);
+Route::resource('ventas', VentaController::class);
+Route::resource('librerias', LibreriaController::class);
+Route::resource('descuentos', DescuentoController::class);
+Route::resource('fotos', FotoController::class);
+Route::resource('comentarios', ComentarioController::class);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+
+
+
+
+
 
 
 Route::get('editoriales_imprimir', [EditorialController::class, 'imprimir']);
+
+
+
+
+Route::get('/regalias/{id}/edit', [RegaliaController::class, 'edit'])->name('regalias.edit');
+Route::put('/regalias/{id}', [RegaliaController::class, 'update'])->name('regalias.update');
