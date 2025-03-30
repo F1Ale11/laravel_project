@@ -30,6 +30,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
 Route::resource('editoriales', EditorialController::class);
 Route::resource('titulos', TituloController::class);
 Route::resource('autores', AutorController::class);
@@ -39,7 +40,7 @@ Route::resource('librerias', LibreriaController::class);
 Route::resource('descuentos', DescuentoController::class);
 Route::resource('fotos', FotoController::class);
 Route::resource('comentarios', ComentarioController::class);
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/algomal', [DashboardController::class, 'index'])->name('dashboard');
 
 
 
@@ -56,3 +57,28 @@ Route::get('editoriales_imprimir', [EditorialController::class, 'imprimir']);
 
 Route::get('/regalias/{id}/edit', [RegaliaController::class, 'edit'])->name('regalias.edit');
 Route::put('/regalias/{id}', [RegaliaController::class, 'update'])->name('regalias.update');
+*/
+
+// Grupo de rutas privadas (requieren autenticación)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('editoriales', EditorialController::class);
+    Route::resource('titulos', TituloController::class);Route::resource('ventas', TituloController::class);
+    Route::resource('autores', AutorController::class);
+    Route::resource('regalias', RegaliaController::class);
+    Route::resource('ventas', VentaController::class);
+    Route::resource('librerias', LibreriaController::class);
+    Route::resource('descuentos', DescuentoController::class);
+    Route::resource('fotos', FotoController::class);
+    Route::resource('comentarios', ComentarioController::class);
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('editoriales_imprimir', [EditorialController::class, 'imprimir']);
+
+    Route::get('/regalias/{id}/edit', [RegaliaController::class, 'edit'])->name('regalias.edit');
+    Route::put('/regalias/{id}', [RegaliaController::class, 'update'])->name('regalias.update');
+    Route::get('/algomal', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+// Redirigir después del login al dashboard
+Route::redirect('/home', '/dashboard')->middleware('auth');
